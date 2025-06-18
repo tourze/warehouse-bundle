@@ -56,7 +56,7 @@ class LocationTest extends TestCase
 
     public function testSetAndGetCreateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->location->setCreateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->location->getCreateTime());
@@ -64,7 +64,7 @@ class LocationTest extends TestCase
 
     public function testSetAndGetUpdateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->location->setUpdateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->location->getUpdateTime());

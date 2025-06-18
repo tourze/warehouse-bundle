@@ -113,7 +113,7 @@ class ShelfTest extends TestCase
 
     public function testSetAndGetCreateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->shelf->setCreateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->shelf->getCreateTime());
@@ -121,7 +121,7 @@ class ShelfTest extends TestCase
 
     public function testSetAndGetUpdateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->shelf->setUpdateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->shelf->getUpdateTime());

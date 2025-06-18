@@ -4,31 +4,20 @@ namespace WarehouseBundle\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Stringable;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
 use Tourze\DoctrineUserBundle\Attribute\UpdatedByColumn;
-use Tourze\EasyAdmin\Attribute\Action\Creatable;
-use Tourze\EasyAdmin\Attribute\Action\Deletable;
-use Tourze\EasyAdmin\Attribute\Action\Editable;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Permission\AsPermission;
 use WarehouseBundle\Repository\LocationRepository;
 
 /**
  * @see https://www.woshipm.com/pd/3355437.html
  */
-#[AsPermission(title: '货位')]
-#[Deletable]
-#[Editable]
-#[Creatable]
 #[ORM\Entity(repositoryClass: LocationRepository::class)]
 #[ORM\Table(name: 'ims_wms_location', options: ['comment' => '货位'])]
-class Location
+class Location implements Stringable
 {
     use TimestampableAware;
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -38,15 +27,13 @@ class Location
     #[ORM\JoinColumn(nullable: false)]
     private ?Shelf $shelf = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+#[ORM\Column(length: 100, nullable: true, options: ['comment' => '字段说明'])]
     private ?string $title = null;
 
     #[CreatedByColumn]
-    #[ORM\Column(nullable: true, options: ['comment' => '创建人'])]
     private ?string $createdBy = null;
 
     #[UpdatedByColumn]
-    #[ORM\Column(nullable: true, options: ['comment' => '更新人'])]
     private ?string $updatedBy = null;
 
     public function getId(): ?int
@@ -100,4 +87,9 @@ class Location
     public function getUpdatedBy(): ?string
     {
         return $this->updatedBy;
-    }}
+    }
+    public function __toString(): string
+    {
+        return (string) $this->id;
+    }
+}

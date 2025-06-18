@@ -9,25 +9,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Tourze\DoctrineTimestampBundle\Traits\TimestampableAware;
 use Tourze\DoctrineUserBundle\Attribute\CreatedByColumn;
 use Tourze\DoctrineUserBundle\Attribute\UpdatedByColumn;
-use Tourze\EasyAdmin\Attribute\Action\Creatable;
-use Tourze\EasyAdmin\Attribute\Action\Deletable;
-use Tourze\EasyAdmin\Attribute\Action\Editable;
-use Tourze\EasyAdmin\Attribute\Column\ExportColumn;
-use Tourze\EasyAdmin\Attribute\Column\ListColumn;
-use Tourze\EasyAdmin\Attribute\Permission\AsPermission;
 use WarehouseBundle\Repository\WarehouseRepository;
 
-#[AsPermission(title: '仓库')]
-#[Deletable]
-#[Editable]
-#[Creatable]
 #[ORM\Entity(repositoryClass: WarehouseRepository::class)]
 #[ORM\Table(name: 'ims_wms_warehouse', options: ['comment' => '仓库'])]
 class Warehouse implements \Stringable
 {
     use TimestampableAware;
-    #[ListColumn(order: -1)]
-    #[ExportColumn]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::INTEGER, options: ['comment' => 'ID'])]
@@ -39,21 +27,19 @@ class Warehouse implements \Stringable
     #[ORM\Column(type: Types::STRING, length: 100, options: ['comment' => '名称'])]
     private ?string $name = null;
 
-    #[ORM\Column(length: 60, nullable: true)]
+#[ORM\Column(length: 60, nullable: true, options: ['comment' => '字段说明'])]
     private ?string $contactName = null;
 
-    #[ORM\Column(length: 120, nullable: true)]
+#[ORM\Column(length: 120, nullable: true, options: ['comment' => '字段说明'])]
     private ?string $contactTel = null;
 
     #[ORM\OneToMany(mappedBy: 'warehouse', targetEntity: Zone::class)]
     private Collection $zones;
 
     #[CreatedByColumn]
-    #[ORM\Column(nullable: true, options: ['comment' => '创建人'])]
     private ?string $createdBy = null;
 
     #[UpdatedByColumn]
-    #[ORM\Column(nullable: true, options: ['comment' => '更新人'])]
     private ?string $updatedBy = null;
 
     public function __construct()

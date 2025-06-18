@@ -156,7 +156,7 @@ class WarehouseTest extends TestCase
 
     public function testSetAndGetCreateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->warehouse->setCreateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->warehouse->getCreateTime());
@@ -164,7 +164,7 @@ class WarehouseTest extends TestCase
 
     public function testSetAndGetUpdateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->warehouse->setUpdateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->warehouse->getUpdateTime());

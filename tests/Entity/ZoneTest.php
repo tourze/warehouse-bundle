@@ -139,7 +139,7 @@ class ZoneTest extends TestCase
 
     public function testSetAndGetCreateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->zone->setCreateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->zone->getCreateTime());
@@ -147,7 +147,7 @@ class ZoneTest extends TestCase
 
     public function testSetAndGetUpdateTime_validDateTime_returnsDateTime(): void
     {
-        $dateTime = new \DateTime();
+        $dateTime = new \DateTimeImmutable();
         $this->zone->setUpdateTime($dateTime);
         
         $this->assertEquals($dateTime, $this->zone->getUpdateTime());
