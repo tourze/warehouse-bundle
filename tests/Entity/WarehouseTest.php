@@ -46,15 +46,17 @@ class WarehouseTest extends TestCase
 
     public function testToString_whenIdIsNotZero_returnsFormattedString(): void
     {
-        $warehouseMock = $this->getMockBuilder(Warehouse::class)
-            ->onlyMethods(['getId'])
-            ->getMock();
+        $warehouse = new Warehouse();
+        $warehouse->setName('测试仓库');
+        $warehouse->setCode('TEST');
         
-        $warehouseMock->method('getId')->willReturn(1);
-        $warehouseMock->setName('测试仓库');
-        $warehouseMock->setCode('TEST');
+        // 使用反射设置私有属性id的值，以模拟从数据库获取的对象
+        $reflection = new \ReflectionClass($warehouse);
+        $property = $reflection->getProperty('id');
+        $property->setAccessible(true);
+        $property->setValue($warehouse, 1);
         
-        $this->assertEquals('测试仓库(TEST)', (string)$warehouseMock);
+        $this->assertEquals('测试仓库(TEST)', (string)$warehouse);
     }
 
     public function testSetAndGetContactName_validString_returnsContactName(): void
